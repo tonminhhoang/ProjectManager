@@ -1,6 +1,8 @@
 import pygame, sys
 from settings import *
 
+#xin chao
+
 class Game:
 	def __init__(self):
 		pygame.init()
