@@ -1,9 +1,7 @@
 import pygame, sys
 from settings import *
 
-#xin chao
-
-class Game:
+class Application:
 	def __init__(self):
 		pygame.init()
 		self.screen = pygame.display.set_mode((WIDTH,HEIGHT), pygame.RESIZABLE)
@@ -15,10 +13,9 @@ class Game:
 				if event.type == pygame.QUIT:
 					pygame.quit()
 					sys.exit()
-			self.screen.fill('white')
+			self.screen.fill('black')
 			pygame.display.update()
 			self.clock.tick(FPS)
 
 if __name__ == '__main__':
-	game = Game()
-	game.run()
+	Application().run()
