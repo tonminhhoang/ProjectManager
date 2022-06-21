@@ -1,6 +1,11 @@
 import pygame, sys
 from settings import *
 
+class welcome_page:
+	def __init__(self):
+		self.logo = pygame.image.load("Logo.png")
+		self.welcome = pygame.image.load("welcome.png")
+
 class Application:
 	def __init__(self):
 		pygame.init()
@@ -13,7 +18,7 @@ class Application:
 				if event.type == pygame.QUIT:
 					pygame.quit()
 					sys.exit()
-			self.screen.fill('black')
+			self.screen.fill('white')
 			pygame.display.update()
 			self.clock.tick(FPS)
 
