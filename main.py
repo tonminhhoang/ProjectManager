@@ -1,12 +1,12 @@
 import pygame, sys
 from settings import *
-class Game:
+class Application:
 	def __init__(self):
 		pygame.init()
 		self.screen = pygame.display.set_mode((WIDTH,HEIGHT), pygame.RESIZABLE)
 		self.clock = pygame.time.Clock()
 
-    def run(self): 
+	def run(self):
 		while True:
 			for event in pygame.event.get():
 				if event.type == pygame.QUIT:
@@ -15,7 +15,6 @@ class Game:
 			self.screen.fill('white')
 			pygame.display.update()
 			self.clock.tick(FPS)
-
 if __name__ == '__main__':
-	game = Game()
-	game.run()
+    Application().run()
+            
