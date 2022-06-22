@@ -1,9 +1,6 @@
 import pygame, sys
 from settings import *
-<<<<<<< HEAD
-=======
 
->>>>>>> 28814141f4b7ea1a2b21c13804152ad8e142a189
 class Application:
 	def __init__(self):
 		pygame.init()
@@ -19,10 +16,6 @@ class Application:
 			self.screen.fill('white')
 			pygame.display.update()
 			self.clock.tick(FPS)
+
 if __name__ == '__main__':
-<<<<<<< HEAD
-    Application().run()
-            
-=======
 	Application().run()
->>>>>>> 28814141f4b7ea1a2b21c13804152ad8e142a189
