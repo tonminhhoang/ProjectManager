@@ -8,6 +8,8 @@ uses crt;
 (*TYPE*)
 
 (*VAR*)
+var
+	running : boolean = true;
 
 (*PROCEDURE & FUNCTION*)
 procedure draw_PJ_name();
@@ -24,7 +26,6 @@ end;
 
 function Welcome_Page() : char;
 begin
-	clrscr;
 	draw_PJ_name();
 	Writeln('                                        MENU:                                        ');
 	Writeln('                                   1) New PROJECT                                    ');
@@ -35,7 +36,7 @@ begin
 	Read(Welcome_Page);
 end;
 
-procedure team_information();
+function team_information() : string;
 var
 	user_input : String;
 	back_keyword : String = 'b';
@@ -72,21 +73,27 @@ begin
 	keyRead := ReadKey;	
 	
 	case keyRead of
-		#27: Welcome_Page();
+		#27: team_information := 'back';
 	end;
 
 	if LowerCase(user_input) = back_keyword then
-		Welcome_Page();
+		team_information := 'back';
 end;
 
 (*MAIN*)
 BEGIN
-	case Welcome_Page() of
-		{
-		'1' : new_Project();
-		'2' : open_Project();
-		'3' : help();
-		}
-		'i' : team_information();
-	end;
+	while running = true do
+		begin
+			case Welcome_Page() of
+				{
+				'1' : new_Project();
+				'2' : open_Project();
+				'3' : help();
+				}
+				'i' :
+					begin
+						case team_information() of 'back' : continue; end; 
+					end;
+			end;
+		end;
 END.
