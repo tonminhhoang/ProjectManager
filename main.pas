@@ -23,8 +23,6 @@ begin
 end;
 
 function Welcome_Page() : char;
-var
-	user_selection : char;
 begin
 	clrscr;
 	draw_PJ_name();
@@ -34,29 +32,34 @@ begin
 	Writeln('                                       3) Help                                       ');
 	Writeln('i) ABOUT KONST TEAM');
 	Write('Selection: ');
-	Read(user_selection);
-	Welcome_Page := user_selection;
+	Read(Welcome_Page);
 end;
 
 procedure team_information();
 var
-	user_input : String = '';
+	user_input : String;
+	back_keyword : String = 'b';
+	keyRead : char;
 begin
 	clrscr;
-	Writeln('<- Back');
+	Write('<- ');
+	TextColor(Red);
+	Write('B'); 
+	TextColor(white);
+	Writeln('ack');
 	Writeln('                                ********************                                 ');
 	Writeln('                                * About KONST TEAM *                                 ');
 	Writeln('                                ********************                                 ');
-	Writeln('Konst team was established in July 2022 with the purpose of creating software program');
-	Writeln('-s that provide customers a better solution in managing teams and so on. Originally, ');
-	Writeln('Konst team was found by Ton Minh Hoang with 2 co-founders Lam Han Dat and Cao Doan An');
-	Writeln('-h Khoa, we are highschool students from Viet Nam');
+	Writeln('Konst team was established in July 2022 with the purpose of creating software programs');
+	Writeln(' that provide customers a better solution in managing teams and so on. Originally, ');
+	Writeln('Konst team was found by Ton Minh Hoang with 2 co-founders Lam Han Dat and Cao Doan Anh');
+	Writeln(' Khoa, we are highschool students from Viet Nam');
 	Writeln();
 	Writeln('From the developers:');
 	Writeln('Ton Minh Hoang');
 	Writeln('Founder, developer');
-	Writeln('"I am glad you used Konst Team`s product, hope you have great time using Project Manage');
-	Writeln('-r as much as how I developed the program."');
+	Writeln('"I am glad you used Konst Team`s product, hope you have great time using Project Manager');
+	Writeln(' as much as how I developed the program."');
 	Writeln();
 	Writeln('Lam Han Dat');
 	Writeln('Co-founder, developer');
@@ -66,23 +69,24 @@ begin
 	Writeln('Co-founder, developer');
 	Writeln('"<viet cam nghi vao day>"');
 	Read(user_input);
-	user_input := LowerCase(user_input);
-	if user_input <> '' then
-		Write('success');
+	keyRead := ReadKey;	
+	
+	case keyRead of
+		#27: Welcome_Page();
+	end;
+
+	if LowerCase(user_input) = back_keyword then
+		Welcome_Page();
 end;
 
 (*MAIN*)
 BEGIN
-	Welcome_Page();
-	if Welcome_Page() <> '' then
-		begin
-			case Welcome_Page() of
-				{
-				'1' : new_Project();
-				'2' : open_Project();
-				'3' : help();
-				}
-				'i' : team_information();
-			end;
-		end;
+	case Welcome_Page() of
+		{
+		'1' : new_Project();
+		'2' : open_Project();
+		'3' : help();
+		}
+		'i' : team_information();
+	end;
 END.
