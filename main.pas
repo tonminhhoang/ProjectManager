@@ -1,6 +1,7 @@
 program Project_Manager;
 
 (*INCLUDE UNITS, LIBRARIES*)
+uses crt;
 
 (*CONST*)
 
@@ -21,7 +22,7 @@ begin
 	Writeln('*************************************************************************************');
 end;
 
-function Welcome_Page() : integer;
+function Welcome_Page() : char;
 var
 	user_selection : char;
 begin
@@ -39,7 +40,7 @@ end;
 
 procedure team_information();
 var
-	user_input : string;
+	user_input : String = '';
 begin
 	clrscr;
 	Writeln('<- Back');
@@ -65,19 +66,23 @@ begin
 	Writeln('Co-founder, developer');
 	Writeln('"<viet cam nghi vao day>"');
 	Read(user_input);
-	if LowerCase(user_input) = 'b' or LowerCase(user_input) = 'back' then
-		Welcome_Page();
+	user_input := LowerCase(user_input);
+	if user_input <> '' then
+		Write('success');
 end;
 
 (*MAIN*)
 BEGIN
 	Welcome_Page();
-	if Welcome_Page() <> nil then
+	if Welcome_Page() <> '' then
 		begin
 			case Welcome_Page() of
+				{
 				'1' : new_Project();
 				'2' : open_Project();
 				'3' : help();
+				}
 				'i' : team_information();
+			end;
 		end;
 END.
