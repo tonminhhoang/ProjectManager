@@ -9,12 +9,33 @@ uses crt;
 
 (*VAR*)
 var
+	(*for main loop*)
 	running : boolean = true;
+	keyRead : char;
+	quitQuest : char;
+	quitQuest_Y : char = 'y';
+	quitQuest_N : char = 'n';
+	
+	(*page count*)
+	page : integer = 0;
 
 (*PROCEDURE & FUNCTION*)
-procedure draw_PJ_name();
+
+function Back_Page_Function(user_input : string; BPFpage : integer; flag : boolean) : integer;
+var
+	back_keyword : string = 'b';
 begin
-	(*Name of project*)
+	
+	if LowerCase(user_input) = back_keyword then
+		begin
+			flag := true;
+			Back_Page_Function := BPFpage - 1;
+		end;
+end;
+
+function Welcome_Page() : char;
+begin
+	clrscr;
 	Writeln('*************************************************************************************');
 	Writeln('*  __   __   __  ___  __  __ ___     .  .   .   .  .   .   .  .   .    __   __  __  *');
 	Writeln('* |__| |__| |  |  |  |__ |    |      |\/|  /_\  |\ |  /_\  |\ |  /_\  |  _ |__ |__| *');
@@ -22,11 +43,6 @@ begin
 	Writeln('*                                                                                   *');
 	Writeln('*                             (DEVELOPED BY KONST TEAM)                             *');
 	Writeln('*************************************************************************************');
-end;
-
-function Welcome_Page() : char;
-begin
-	draw_PJ_name();
 	Writeln('                                        MENU:                                        ');
 	Writeln('                                   1) New PROJECT                                    ');
 	Writeln('                              2) Open existing PROJECT                               ');
@@ -36,11 +52,7 @@ begin
 	Read(Welcome_Page);
 end;
 
-function team_information() : string;
-var
-	user_input : String;
-	back_keyword : String = 'b';
-	keyRead : char;
+procedure team_information();
 begin
 	clrscr;
 	Write('<- ');
@@ -49,7 +61,7 @@ begin
 	TextColor(white);
 	Writeln('ack');
 	Writeln('                                ********************                                 ');
-	Writeln('                                * About KONST TEAM *                                 ');
+	Writeln('                                | About KONST TEAM |                                 ');
 	Writeln('                                ********************                                 ');
 	Writeln('Konst team was established in July 2022 with the purpose of creating software programs');
 	Writeln(' that provide customers a better solution in managing teams and so on. Originally, ');
@@ -69,30 +81,65 @@ begin
 	Writeln('Cao Doan Anh Khoa');
 	Writeln('Co-founder, developer');
 	Writeln('"<viet cam nghi vao day>"');
-	Read(user_input);
-	keyRead := ReadKey;	
-	
-	case keyRead of
-		#27: team_information := 'back';
-	end;
+	Readln();
+end;
 
-	if LowerCase(user_input) = back_keyword then
-		team_information := 'back';
+procedure new_Project();
+begin 
+	Writeln('hooray!:))');
+	readln();
+end;
+
+procedure open_Project();
+begin
+	Writeln('opended project');
+	readln();
+end;
+
+procedure help();
+begin
+	Writeln('help page!');
+	readln();
 end;
 
 (*MAIN*)
 BEGIN
 	while running = true do
 		begin
+			
+			keyRead := ReadKey;
+
+			case keyRead of
+				#27: 
+					begin
+						Writeln();
+						Write('Do you want to quit? Y / N: ');
+						Readln(quitQuest);
+						if LowerCase(quitQuest) = quitQuest_Y then
+							running := false;
+					end;
+			end;
+
 			case Welcome_Page() of
-				{
-				'1' : new_Project();
-				'2' : open_Project();
-				'3' : help();
-				}
+				'1' : 
+					begin
+						new_Project();
+						continue;
+					end;
+				'2' : 
+					begin
+						open_Project();
+						continue;
+					end;
+				'3' : 
+					begin
+						help();
+						continue;
+					end;
 				'i' :
 					begin
-						case team_information() of 'back' : continue; end; 
+						team_information();
+						continue;
 					end;
 			end;
 		end;
