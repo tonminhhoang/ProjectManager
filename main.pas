@@ -64,7 +64,7 @@ begin
 	Writeln();
 	Writeln('Cao Doan Anh Khoa');
 	Writeln('Co-founder, developer');
-	Writeln('"<viet cam nghi vao day>"');
+	Writeln('"Welcome dear users to project_manager, hope you will have a great experience with this application"');
 	Read(user_input);
 	user_input := LowerCase(user_input);
 	if user_input <> '' then
