@@ -33,13 +33,14 @@ begin
 		end;
 end;
 
+(*WELCOME PAGE*)
 function Welcome_Page() : char;
 begin
 	clrscr;
 	Writeln('*************************************************************************************');
 	Writeln('*  __   __   __  ___  __  __ ___     .  .   .   .  .   .   .  .   .    __   __  __  *');
 	Writeln('* |__| |__| |  |  |  |__ |    |      |\/|  /_\  |\ |  /_\  |\ |  /_\  |  _ |__ |__| *');
-	Writeln('* |    |  \ |__| _|  |__ |__  |      |  | /   \ | \| /   \ | \| /   \ |__; |__ |  \ *');
+	Writeln('* |    |  \ |__| _|  |__ |__  |      |  | /   \ | \| /   \ | \| /   \ |__| |__ |  \ *');
 	Writeln('*                                                                                   *');
 	Writeln('*                             (DEVELOPED BY KONST TEAM)                             *');
 	Writeln('*************************************************************************************');
@@ -52,6 +53,7 @@ begin
 	Read(Welcome_Page);
 end;
 
+(*TEAM INFORMATION PAGE*)
 procedure team_information();
 begin
 	clrscr;
@@ -80,22 +82,25 @@ begin
 	Writeln();
 	Writeln('Cao Doan Anh Khoa');
 	Writeln('Co-founder, developer');
-	Writeln('"<viet cam nghi vao day>"');
+	Writeln('"Welcome dear users to project_manager, hope you will have a great experience with this application"');
 	Readln();
 end;
 
+(*NEW PROJECT PAGE*)
 procedure new_Project();
 begin 
 	Writeln('hooray!:))');
 	readln();
 end;
 
+(*OPEN PROJECT*)
 procedure open_Project();
 begin
 	Writeln('opended project');
 	readln();
 end;
 
+(*HELP PAGE*)
 procedure help();
 begin
 	Writeln('help page!');
@@ -141,6 +146,8 @@ BEGIN
 						team_information();
 						continue;
 					end;
+				else
+					Writeln('Please choose options from the list!');
 			end;
 		end;
 END.
