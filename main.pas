@@ -11,10 +11,6 @@ uses crt;
 var
 	(*for main loop*)
 	running : boolean = true;
-	keyRead : char;
-	quitQuest : char;
-	quitQuest_Y : char = 'y';
-	quitQuest_N : char = 'n';
 	
 	(*page count*)
 	page : integer = 0;
@@ -33,7 +29,6 @@ begin
 		end;
 end;
 
-(*WELCOME PAGE*)
 function Welcome_Page() : char;
 begin
 	clrscr;
@@ -53,7 +48,6 @@ begin
 	Read(Welcome_Page);
 end;
 
-(*TEAM INFORMATION PAGE*)
 procedure team_information();
 begin
 	clrscr;
@@ -81,50 +75,138 @@ begin
 	Writeln('"<viet cam nghi vao day>"');
 	Writeln();
 	Writeln('Cao Doan Anh Khoa');
-	Writeln('Co-founder, developer');
 	Writeln('"Welcome dear users to project_manager, hope you will have a great experience with this application"');
+	Writeln('Co-founder, developer');
 	Readln();
 end;
 
-(*NEW PROJECT PAGE*)
 procedure new_Project();
 begin 
 	Writeln('hooray!:))');
 	readln();
 end;
 
-(*OPEN PROJECT*)
 procedure open_Project();
 begin
 	Writeln('opended project');
 	readln();
 end;
 
-(*HELP PAGE*)
 procedure help();
 begin
 	Writeln('help page!');
 	readln();
 end;
 
+procedure LogIn();
+begin
+	Writeln('                   ||                ');
+	Writeln('                  _||_               ');
+	Writeln('                  \  /               ');
+	Writeln('                   \/                ');
+	Writeln(' _     _______  _______    _  __   _ ');
+	Writeln('| |   |  ___  ||  _____|  | ||  \ | |');
+	Writeln('| |   | |   | || |  _____ | || \ \| |');
+	Writeln('| |   | |   | || | |_   _|| || |\   |');
+	Writeln('| |__ | |___| || |___| |  | || | \  |');
+	Writeln('|____||_______||_______|  |_||_|  |_|');
+	Writeln('                              _______  _______ ');
+	Writeln('                             |  ___  ||  ___  |');
+	Writeln('                             | |   | || |___| |');
+	Writeln('                             | |   | ||  __  _|');	
+	Writeln('                             | |___| || |  \ \ ');
+	Writeln('                             |_______||_|   \_\');
+	Writeln('                                       _____  _  _______    __   _   _    _  _______ ');
+	Writeln('                                      |  ___|| ||  _____|  |  \ | | | |  | ||  ___  |');
+	Writeln('                                      | |___ | || |  _____ | \ \| | | |  | || |___| |');
+	Writeln('                                      |___  || || | |_   _|| |\   | | |  | ||  _____|');
+	Writeln('                                       ___| || || |___| |  | | \  | | |__| || |      ');
+	Writeln('                                      |_____||_||_______|  |_|  |_| |______||_|      ');
+end;
+	
+procedure SignUp();
+begin
+	Writeln(' _     _______  _______    _  __   _ ');
+	Writeln('| |   |  ___  ||  _____|  | ||  \ | |');
+	Writeln('| |   | |   | || |  _____ | || \ \| |');
+	Writeln('| |   | |   | || | |_   _|| || |\   |');
+	Writeln('| |__ | |___| || |___| |  | || | \  |');
+	Writeln('|____||_______||_______|  |_||_|  |_|');
+	Writeln('                              _______  _______                                       ');
+	Writeln('                             |  ___  ||  ___  |                                      ');
+	Writeln('                             | |   | || |___| |               ||                     ');
+	Writeln('                             | |   | ||  __  _|              _||_                    ');	
+	Writeln('                             | |___| || |  \ \               \  /                    ');
+	Writeln('                             |_______||_|   \_\               \/                     ');                           
+	Writeln('                                       _____  _  _______    __   _   _    _  _______ ');
+	Writeln('                                      |  ___|| ||  _____|  |  \ | | | |  | ||  ___  |');
+	Writeln('                                      | |___ | || |  _____ | \ \| | | |  | || |___| |');
+	Writeln('                                      |___  || || | |_   _|| |\   | | |  | ||  _____|');
+	Writeln('                                       ___| || || |___| |  | | \  | | |__| || |      ');
+	Writeln('                                      |_____||_||_______|  |_|  |_| |______||_|      ');
+end;
+
+function Login_Signup_Sys() : integer;
+var
+	ch : char;
+	ch2 : char;
+	flag : boolean = false;
+begin
+	Login();
+	Writeln('Use left - right arrow keys to navigate!');
+	Writeln('Please press "C" to confirm!');
+	repeat
+    	ch:=ReadKey;
+    	case ch of
+     		#0 : begin
+            	ch:=ReadKey; {Read ScanCode}
+            	case ch of
+             		#75 : 
+						begin
+							clrscr;
+							LogIn();
+							Writeln('Use left - right arrow keys to navigate!');
+							Writeln('Please press "C" to confirm!');
+							ch2 := ReadKey;
+							case ch2 of
+								#67, #99: 
+									begin
+										Login_Signup_Sys := 1;
+										flag := true;
+									end;
+							end;
+						end;
+             		#77 : 
+						begin
+							clrscr;
+							SignUp();
+							Writeln('Use left - right arrow keys to navigate!');
+							Writeln('Please press "C" to confirm!');
+							ch2 := ReadKey;
+							case ch2 of
+								#67, #99: 
+									begin
+										Login_Signup_Sys := 2;
+										flag := true;
+									end;
+							end;
+						end;
+            	end;
+          	end;
+    	end;
+  	until flag = true
+end;
+
 (*MAIN*)
 BEGIN
 	while running = true do
 		begin
-			
-			keyRead := ReadKey;
-
-			case keyRead of
-				#27: 
-					begin
-						Writeln();
-						Write('Do you want to quit? Y / N: ');
-						Readln(quitQuest);
-						if LowerCase(quitQuest) = quitQuest_Y then
-							running := false;
-					end;
+			case Login_Signup_Sys() of
+				1: Writeln('Login success!');
+				2: Writeln('Signup success!');
 			end;
 
+			{
 			case Welcome_Page() of
 				'1' : 
 					begin
@@ -149,5 +231,6 @@ BEGIN
 				else
 					Writeln('Please choose options from the list!');
 			end;
+			}
 		end;
 END.
