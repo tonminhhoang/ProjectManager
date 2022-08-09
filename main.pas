@@ -8,55 +8,73 @@ uses crt;
 (*TYPE*)
 
 (*VAR*)
+var
+	(*for main loop*)
+	running : boolean = true;
+	keyRead : char;
+	quitQuest : char;
+	quitQuest_Y : char = 'y';
+	quitQuest_N : char = 'n';
+	
+	(*page count*)
+	page : integer = 0;
 
 (*PROCEDURE & FUNCTION*)
-procedure draw_PJ_name();
+
+function Back_Page_Function(user_input : string; BPFpage : integer; flag : boolean) : integer;
+var
+	back_keyword : string = 'b';
 begin
-	(*Name of project*)
+	
+	if LowerCase(user_input) = back_keyword then
+		begin
+			flag := true;
+			Back_Page_Function := BPFpage - 1;
+		end;
+end;
+
+(*WELCOME PAGE*)
+function Welcome_Page() : char;
+begin
+	clrscr;
 	Writeln('*************************************************************************************');
 	Writeln('*  __   __   __  ___  __  __ ___     .  .   .   .  .   .   .  .   .    __   __  __  *');
 	Writeln('* |__| |__| |  |  |  |__ |    |      |\/|  /_\  |\ |  /_\  |\ |  /_\  |  _ |__ |__| *');
-	Writeln('* |    |  \ |__| _|  |__ |__  |      |  | /   \ | \| /   \ | \| /   \ |__; |__ |  \ *');
+	Writeln('* |    |  \ |__| _|  |__ |__  |      |  | /   \ | \| /   \ | \| /   \ |__| |__ |  \ *');
 	Writeln('*                                                                                   *');
 	Writeln('*                             (DEVELOPED BY KONST TEAM)                             *');
 	Writeln('*************************************************************************************');
-end;
-
-function Welcome_Page() : char;
-var
-	user_selection : char;
-begin
-	clrscr;
-	draw_PJ_name();
 	Writeln('                                        MENU:                                        ');
 	Writeln('                                   1) New PROJECT                                    ');
 	Writeln('                              2) Open existing PROJECT                               ');
 	Writeln('                                       3) Help                                       ');
 	Writeln('i) ABOUT KONST TEAM');
 	Write('Selection: ');
-	Read(user_selection);
-	Welcome_Page := user_selection;
+	Read(Welcome_Page);
 end;
 
+(*TEAM INFORMATION PAGE*)
 procedure team_information();
-var
-	user_input : String = '';
 begin
 	clrscr;
-	Writeln('<- Back');
+	Write('<- ');
+	TextColor(Red);
+	Write('B'); 
+	TextColor(white);
+	Writeln('ack');
 	Writeln('                                ********************                                 ');
-	Writeln('                                * About KONST TEAM *                                 ');
+	Writeln('                                | About KONST TEAM |                                 ');
 	Writeln('                                ********************                                 ');
-	Writeln('Konst team was established in July 2022 with the purpose of creating software program');
-	Writeln('-s that provide customers a better solution in managing teams and so on. Originally, ');
-	Writeln('Konst team was found by Ton Minh Hoang with 2 co-founders Lam Han Dat and Cao Doan An');
-	Writeln('-h Khoa, we are highschool students from Viet Nam');
+	Writeln('Konst team was established in July 2022 with the purpose of creating software programs');
+	Writeln(' that provide customers a better solution in managing teams and so on. Originally, ');
+	Writeln('Konst team was found by Ton Minh Hoang with 2 co-founders Lam Han Dat and Cao Doan Anh');
+	Writeln(' Khoa, we are highschool students from Viet Nam');
 	Writeln();
 	Writeln('From the developers:');
 	Writeln('Ton Minh Hoang');
 	Writeln('Founder, developer');
-	Writeln('"I am glad you used Konst Team`s product, hope you have great time using Project Manage');
-	Writeln('-r as much as how I developed the program."');
+	Writeln('"I am glad you used Konst Team`s product, hope you have great time using Project Manager');
+	Writeln(' as much as how I developed the program."');
 	Writeln();
 	Writeln('Lam Han Dat');
 	Writeln('Co-founder, developer');
@@ -65,24 +83,83 @@ begin
 	Writeln('Cao Doan Anh Khoa');
 	Writeln('Co-founder, developer');
 	Writeln('"Welcome dear users to project_manager, hope you will have a great experience with this application"');
-	Read(user_input);
-	user_input := LowerCase(user_input);
-	if user_input <> '' then
-		Write('success');
+	Readln();
+end;
+
+(*NEW PROJECT PAGE*)
+procedure new_Project();
+begin 
+    clrscr;
+	writeln('        Write your project:              ');
+	writeln('        -------------------------        ');
+	writeln('        |    name_of_project    |        '); readln(name);
+	writeln('        -------------------------        ');
+	writeln('        Write your pass 1:               ');
+	writeln('        -------------------------        ');
+	writeln('        |         pass1         |        ');readln(pass);
+	writeln('        -------------------------        ');
+	writeln('        Write your pass 2:               ');
+	writeln('        -------------------------        ');
+	writeln('        |         pass2         |        ');readln(pass);
+	writeln('        -------------------------        ');
+	readln();
+end;
+
+(*OPEN PROJECT*)
+procedure open_Project();
+begin
+	Writeln('opended project');
+	readln();
+end;
+
+(*HELP PAGE*)
+procedure help();
+begin
+	Writeln('help page!');
+	readln();
 end;
 
 (*MAIN*)
 BEGIN
-	Welcome_Page();
-	if Welcome_Page() <> '' then
+	while running = true do
 		begin
+			
+			keyRead := ReadKey;
+
+			case keyRead of
+				#27: 
+					begin
+						Writeln();
+						Write('Do you want to quit? Y / N: ');
+						Readln(quitQuest);
+						if LowerCase(quitQuest) = quitQuest_Y then
+							running := false;
+					end;
+			end;
+
 			case Welcome_Page() of
-				{
-				'1' : new_Project();
-				'2' : open_Project();
-				'3' : help();
-				}
-				'i' : team_information();
+				'1' : 
+					begin
+						new_Project();
+						continue;
+					end;
+				'2' : 
+					begin
+						open_Project();
+						continue;
+					end;
+				'3' : 
+					begin
+						help();
+						continue;
+					end;
+				'i' :
+					begin
+						team_information();
+						continue;
+					end;
+				else
+					Writeln('Please choose options from the list!');
 			end;
 		end;
 END.
