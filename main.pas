@@ -76,8 +76,8 @@ begin
 	Writeln('"<viet cam nghi vao day>"');
 	Writeln();
 	Writeln('Cao Doan Anh Khoa');
-	Writeln('"Welcome dear users to project_manager, hope you will have a great experience with this application"');
 	Writeln('Co-founder, developer');
+	Writeln('"Welcome dear users to project_manager, hope you will have a great experience with this application"');
 	Readln();
 end;
 
@@ -206,6 +206,8 @@ begin
 	Writeln('| |   | |   | || | |_   _|| || |\   |');
 	Writeln('| |__ | |___| || |___| |  | || | \  |');
 	Writeln('|____||_______||_______|  |_||_|  |_|');
+	Writeln();
+	Writeln('Username: ');
 	Readln();
 
 end;
