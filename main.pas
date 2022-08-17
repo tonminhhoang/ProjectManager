@@ -11,6 +11,7 @@ uses crt;
 var
 	(*for main loop*)
 	running : boolean = true;
+	test_case : integer;
 	
 	(*page count*)
 	page : integer = 0;
@@ -197,16 +198,34 @@ begin
   	until flag = true
 end;
 
+procedure LogIn_Process();
+begin
+	Writeln(' _     _______  _______    _  __   _ ');
+	Writeln('| |   |  ___  ||  _____|  | ||  \ | |');
+	Writeln('| |   | |   | || |  _____ | || \ \| |');
+	Writeln('| |   | |   | || | |_   _|| || |\   |');
+	Writeln('| |__ | |___| || |___| |  | || | \  |');
+	Writeln('|____||_______||_______|  |_||_|  |_|');
+	Readln();
+
+end;
+
 (*MAIN*)
 BEGIN
 	while running = true do
 		begin
+			Writeln('Enter test case: ');
+			Readln(test_case);
+			case test_case of 
+			1:
+			begin
 			case Login_Signup_Sys() of
 				1: Writeln('Login success!');
 				2: Writeln('Signup success!');
 			end;
-
-			{
+			end;
+			2:
+			begin
 			case Welcome_Page() of
 				'1' : 
 					begin
@@ -231,6 +250,7 @@ BEGIN
 				else
 					Writeln('Please choose options from the list!');
 			end;
-			}
+			end;
+			end;
 		end;
 END.
