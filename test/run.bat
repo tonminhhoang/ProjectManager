@@ -1,0 +1,1 @@
+cd .. && signup.exe

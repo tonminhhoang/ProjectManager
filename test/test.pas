@@ -1,10 +1,16 @@
 program Test;
 
-uses 
-	Dos;
-	
-BEGIN
-	SwapVectors;
-	Exec('C:\Users\84938\OneDrive\Desktop\ProjectManager\main.exe','');
-	SwapVectors;
-END.
+uses crt;
+
+var i : integer;
+
+begin
+	for i := 1 to 30 do 
+		begin
+			if i < 30 then
+				Writeln(i);
+			if i = 30 then
+				Write(i);
+		end;
+	Delay(10000);
+end.

@@ -19,25 +19,27 @@ get_user_value = worksheet.col_values(1)
 del get_user_value[0]
 
 read_file = open("data.txt", "r")
-data = read_file.readline().split(" ")
+data = read_file.readline().strip('\n').split(" ")
 read_file.close()
 
-print(get_user_value[0])
-print(data)
+# print(data)
 
-if data[0] == get_user_value[0]:
-	print("yes!")
-else:
-	print("no")
+# for i in range(0,num_of_user):
+# 	if data[0] == get_user_value[i]:
+# 		print("yes!")
+# 		break
+# 	elif i == num_of_user-1:
+# 		print(i)
+# 		print("no")
 
-#data = open("data.txt", "w")
-#for check_user in range(0, len(get_user_value)-1):
-	#if username == get_user_value[check_user]:
-		#print("Username exist! Please choose another name")
-		#break
-	#elif check_user == len(get_user_value)-1:
-		#print("Success!")
-		#worksheet.update_cell(num_of_user+2, 1, username)
-		#worksheet.update_cell(num_of_user+2, 2, password)
-		#worksheet.update_acell('C2', num_of_user+1)
-#data.close()
+result = open("data.txt", "w")
+for check_user in range(0, num_of_user):
+	if data[0] == get_user_value[check_user]:
+		result.write("Username already exist!")
+		break
+	elif check_user == (num_of_user-1):
+		result.write("Success!")
+		worksheet.update_cell(num_of_user+2, 1, data[0])
+		worksheet.update_cell(num_of_user+2, 2, data[1])
+		worksheet.update_acell('C2', num_of_user+1)
+result.close()

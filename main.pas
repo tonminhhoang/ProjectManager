@@ -1,7 +1,8 @@
 program Project_Manager;
 
 (*INCLUDE UNITS, LIBRARIES*)
-uses crt;
+uses 
+	crt, Dos;
 
 (*CONST*)
 
@@ -162,6 +163,7 @@ begin
      		#0 : begin
             	ch:=ReadKey; {Read ScanCode}
             	case ch of
+					{Log In Page}
              		#75 : 
 						begin
 							clrscr;
@@ -170,6 +172,7 @@ begin
 							Writeln('Please press "C" to confirm!');
 							ch2 := ReadKey;
 							case ch2 of
+								{check if confirm}
 								#67, #99: 
 									begin
 										Login_Signup_Sys := 1;
@@ -177,6 +180,7 @@ begin
 									end;
 							end;
 						end;
+					{Sign Up page}
              		#77 : 
 						begin
 							clrscr;
@@ -184,6 +188,7 @@ begin
 							Writeln('Use left - right arrow keys to navigate!');
 							Writeln('Please press "C" to confirm!');
 							ch2 := ReadKey;
+							{Check if confirm}
 							case ch2 of
 								#67, #99: 
 									begin
@@ -198,18 +203,51 @@ begin
   	until flag = true
 end;
 
-procedure LogIn_Process();
+function SignUp_Process() : boolean;
+var
+	file_handling : text;
+	Username, Password, Result_data, existed : string;
 begin
-	Writeln(' _     _______  _______    _  __   _ ');
-	Writeln('| |   |  ___  ||  _____|  | ||  \ | |');
-	Writeln('| |   | |   | || |  _____ | || \ \| |');
-	Writeln('| |   | |   | || | |_   _|| || |\   |');
-	Writeln('| |__ | |___| || |___| |  | || | \  |');
-	Writeln('|____||_______||_______|  |_||_|  |_|');
-	Writeln();
-	Writeln('Username: ');
-	Readln();
+	clrscr;
+	
+	{initialize variables}
+	existed := 'Username already exist!';
 
+	{UI}
+	Writeln(' _____  _  _______    __   _   _    _  _______ ');
+	Writeln('|  ___|| ||  _____|  |  \ | | | |  | ||  ___  |');
+	Writeln('| |___ | || |  _____ | \ \| | | |  | || |___| |');
+	Writeln('|___  || || | |_   _|| |\   | | |  | ||  _____|');
+	Writeln(' ___| || || |___| |  | | \  | | |__| || |      ');
+	Writeln('|_____||_||_______|  |_|  |_| |______||_|      ');
+	Writeln();
+	Write('Username: '); Readln(Username);
+	Write('Password: '); Readln(Password);
+	Result_data := Username + ' ' + Password;
+
+	{file handling - Write username & password to data file}
+	assign(file_handling, 'data.txt');
+	rewrite(file_handling);
+	System.Writeln(file_handling, Result_data);
+	System.close(file_handling);
+
+	{Execute Sign Up procedure}
+	SwapVectors;
+	Exec('signup.exe','');
+	SwapVectors;
+
+	Result_data := '';
+
+	{file handling - Read the result from data file}
+	assign(file_handling, 'data.txt');
+	reset(file_handling);
+	System.Read(file_handling, Result_data);
+	System.close(file_handling);
+
+	if Result_data = existed then SignUp_Process := false
+	else SignUp_Process := true;
+
+	Writeln(Result_data);
 end;
 
 (*MAIN*)
@@ -219,40 +257,46 @@ BEGIN
 			Writeln('Enter test case: ');
 			Readln(test_case);
 			case test_case of 
-			1:
-			begin
-			case Login_Signup_Sys() of
-				1: Writeln('Login success!');
-				2: Writeln('Signup success!');
-			end;
-			end;
-			2:
-			begin
-			case Welcome_Page() of
-				'1' : 
-					begin
-						new_Project();
-						continue;
+				1:
+				begin
+					case Login_Signup_Sys() of
+						1: Writeln('Login success!');
+						2: 
+						begin
+							case SignUp_Process() of
+								true: Writeln('Have access to main page!');
+								false: Writeln('Signup failed!');
+							end;
+						end;
 					end;
-				'2' : 
-					begin
-						open_Project();
-						continue;
+				end;
+				2:
+				begin
+					case Welcome_Page() of
+						'1' : 
+							begin
+								new_Project();
+								continue;
+							end;
+						'2' : 
+							begin
+								open_Project();
+								continue;
+							end;
+						'3' : 
+							begin
+								help();
+								continue;
+							end;
+						'i' :
+							begin
+								team_information();
+								continue;
+							end;
+						else
+							Writeln('Please choose options from the list!');
 					end;
-				'3' : 
-					begin
-						help();
-						continue;
-					end;
-				'i' :
-					begin
-						team_information();
-						continue;
-					end;
-				else
-					Writeln('Please choose options from the list!');
-			end;
-			end;
+				end;
 			end;
 		end;
 END.
