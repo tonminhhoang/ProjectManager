@@ -258,6 +258,8 @@ BEGIN
 			Readln(test_case);
 			case test_case of 
 				1:
+				{Log In / Sign Up process}
+				{------------------------------------------------------------}
 				begin
 					case Login_Signup_Sys() of
 						1: Writeln('Login success!');
@@ -270,7 +272,10 @@ BEGIN
 						end;
 					end;
 				end;
+				{------------------------------------------------------------}
 				2:
+				{MAIN}
+				{------------------------------------------------------------}
 				begin
 					case Welcome_Page() of
 						'1' : 
@@ -297,6 +302,7 @@ BEGIN
 							Writeln('Please choose options from the list!');
 					end;
 				end;
+				{------------------------------------------------------------}
 			end;
 		end;
 END.
